@@ -15,7 +15,7 @@ export default function SeriesCard({ show, isFavorite, onToggleFavorite, onOpenD
 
 	return (
 		<div className="card">
-			<button className="thumb" onClick={() => onOpenDetail(show)}>
+			<button className="thumb" onClick={() => onOpenDetail(show.id)}>
 				{image ? (
 					<img src={image} alt={`Póster de ${name}`} />
 				) : (
