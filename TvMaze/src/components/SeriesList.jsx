@@ -16,9 +16,9 @@ export default function SeriesList({ shows, favorites, onToggleFavorite, onOpenD
     const favIds = new Set(favorites.map((f) => f.id));
 
     return (
-        <div className="cardList" role="list">
+        <div className="cardList">
             {shows.map((s) => (
-                <div key={s.id} role="listitem">
+                <div key={s.id}>
                     <Serie
                         show={s}
                         isFavorite={favIds.has(s.id)}

@@ -3,7 +3,7 @@ import { FaStar, FaRegStar, FaCalendarAlt } from "react-icons/fa";
 export default function Serie({ show, isFavorite, onToggleFavorite, onOpenDetail }) {
     // show: { id, name, image, genres:[], rating, premiered }
     return (
-        <div className="card" role="article">
+        <div className="card">
             <button
                 className="thumb"
                 onClick={() => onOpenDetail(show.id)}
