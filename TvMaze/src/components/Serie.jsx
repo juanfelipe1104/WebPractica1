@@ -1,60 +1,53 @@
 import { FaStar, FaRegStar, FaCalendarAlt } from "react-icons/fa";
 
-export default function Serie({ show, isFavorite, onToggleFavorite, onOpenDetail }) {
-    // show: { id, name, image, genres:[], rating, premiered }
-    return (
-        <div className="card">
-            <button
-                className="thumb"
-                onClick={() => onOpenDetail(show.id)}
-            >
-                {show.image ? (
-                    <img src={show.image} alt={`Póster de ${show.name}`} />
-                ) : (
-                    <div className="placeholder">Sin imagen</div>
-                )}
-            </button>
+export default function SeriesCard({ show, isFavorite, onToggleFavorite, onOpenDetail }) {
+	if (!show) return null;
 
-            <div className="card-body">
-                <h4>{show.name}</h4>
-                {show.genres.length > 0 && (
-                    <p className="muted">{show.genres.slice(0, 3).join(" · ")}</p>
-                )}
+	const {
+		name,
+		image,
+		genres = [],
+		rating,
+		premiered,
+	} = show;
 
-                <div className="row">
-                    {show.rating != null && (
-                        <span className="badge">
-                            <FaStar /> {show.rating}
-                        </span>
-                    )}
+	const genreLine = genres.slice(0, 3).join(" · ");
 
-                    {show.premiered && (
-                        <span className="badge">
-                            <FaCalendarAlt /> {show.premiered}
-                        </span>
-                    )}
-                </div>
+	return (
+		<div className="card">
+			<button className="thumb" onClick={() => onOpenDetail(show)}>
+				{image ? (
+					<img src={image} alt={`Póster de ${name}`} />
+				) : (
+					<div className="placeholder">Sin imagen</div>
+				)}
+			</button>
 
-                <div className="row">
-                    <button
-                        className={"fav " + (isFavorite ? "is-fav" : "")}
-                        onClick={() => onToggleFavorite(show)}
-                    >
-                        {isFavorite ? (
-                            <>
-                                <FaStar /> Favorito
-                            </>
-                        ) : (
-                            <>
-                                <FaRegStar /> Favorito
-                            </>
-                        )}
-                    </button>
+			<div className="card-body">
+				<h4>{name}</h4>
+				{genreLine && <p className="muted">{genreLine}</p>}
 
-                    <button onClick={() => onOpenDetail(show.id)}>Ver detalle</button>
-                </div>
+				<div className="row">
+					{rating != null && (
+						<span className="badge">
+							<FaStar /> {rating}
+						</span>
+					)}
 
-            </div>
-        </div>
-    );
+					{premiered && (
+						<span className="badge">
+							<FaCalendarAlt /> {premiered}
+						</span>
+					)}
+				</div>
+
+				<button
+					className={`fav ${isFavorite ? "is-fav" : ""}`}
+					onClick={() => onToggleFavorite(show)}
+				>
+					{isFavorite ? <FaStar /> : <FaRegStar />} Favorito
+				</button>
+			</div>
+		</div>
+	);
 }
